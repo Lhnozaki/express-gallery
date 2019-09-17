@@ -1,4 +1,5 @@
 const bookshelf = require("../bookshelf");
+require("./Gallery");
 
 class User extends bookshelf.Model {
   get tableName() {
@@ -7,6 +8,10 @@ class User extends bookshelf.Model {
 
   get hasTimestamps() {
     return true;
+  }
+
+  galleries() {
+    return this.hasMany("Gallery", "user_id");
   }
 }
 

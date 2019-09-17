@@ -1,18 +1,29 @@
 const express = require("express");
+const exphbs = require("express-handlebars");
+const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const decorator = require("./database/decorator");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const methodOverride = require("method-override");
 const bcrypt = require("bcryptjs");
-const redis = require("redis");
+const knex = require("./database/knex");
+const flash = require("connect-flash");
+const saltRounds = 12;
+
+// REDIS
 const RedisStore = require("connect-redis")(session);
+const redis = require("redis");
+const client = redis.createClient({ url: process.env.REDIX_URL });
+
+// DB Models
 const User = require("./database/models/Users");
 const Gallery = require("./database/models/Gallery");
-const knex = require("./database/knex");
-const client = redis.createClient({ url: process.env.REDIX_URL });
-const saltRounds = 12;
-const PORT = 8080;
+
+// PORT
+const PORT = process.env.PORT || 8080;
+
 require("dotenv").config();
 
 const app = express();
@@ -21,6 +32,11 @@ const app = express();
 app.use(express.static("./public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(flash());
+app.use(cookieParser());
+app.engine(".hbs", exphbs({ extname: ".hbs" }));
+app.set("view engine", ".hbs");
+app.use(methodOverride("_method"));
 app.use(decorator);
 
 //Sessions
@@ -134,6 +150,10 @@ app.get("/secret", isAuthenticated, (req, res) => {
 app.get("/logout", (req, res) => {
   req.logout();
   res.send("logged out");
+});
+
+app.get("/", (req, res) => {
+  res.send("Welcome");
 });
 
 app.listen(PORT, () => {
