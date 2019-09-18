@@ -18,13 +18,19 @@ body {
   padding: 60px;
   padding-top: 20px;
   margin: 10px auto;
-  max-width: 750px;
+  max-width: 850px;
   box-shadow: 15px 20px;
-  h2 {
+}
+
+.content {
+  margin: auto;
+  max-width: 650px;
+  // border: 1px solid black;
+  h1 {
     text-align: center;
   }
 
-  h2,
+  h1,
   button {
     text-transform: uppercase;
   }
@@ -33,11 +39,38 @@ body {
     border: 1px solid black;
     height: 40px;
     width: 100px;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 5px 5px;
+      transition: 0.2s;
+    }
   }
 
   input {
     height: 30px;
     width: 100%;
     border: 1px solid grey;
+    font-size: 1.2rem;
+    color: grey;
+    padding: 20px;
+  }
+}
+
+.pictures {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-top: 40px;
+  img {
+    width: 300px;
+    height: 400px;
+    margin-bottom: 20px;
+    opacity: 0.8;
+    &:hover {
+      box-shadow: 10px 10px;
+      transition: 0.2s;
+      opacity: 1;
+    }
   }
 }

@@ -14,6 +14,7 @@ const saltRounds = 12;
 // Routers
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login");
+const registerRouter = require("./routes/register");
 
 // REDIS
 const RedisStore = require("connect-redis")(session);
@@ -65,45 +66,6 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-// app.use(
-//   "/login",
-//   passport.authenticate("local", {
-//     successRedirect: "/secret",
-//     failureRedirect: "login"
-//   })
-// );
-
-app.use("/login", loginRouter);
-
-// Create user accounts
-app.post("/register", (req, res) => {
-  bcrypt.genSalt(saltRounds, (err, salt) => {
-    if (err) {
-      console.log(err);
-    }
-
-    bcrypt.hash(req.body.password, salt, (err, hash) => {
-      if (err) {
-        console.log(err);
-      }
-
-      return new User({
-        username: req.body.username,
-        password: hash
-      })
-        .save()
-        .then(user => {
-          console.log(user);
-          return res.redirect("login");
-        })
-        .catch(err => {
-          console.log(err);
-          return res.send("Error creating account");
-        });
-    });
-  });
-});
-
 app.get("/secret", isAuthenticated, (req, res) => {
   return res.send("You found the secret!");
 });
@@ -113,6 +75,8 @@ app.get("/logout", (req, res) => {
   res.send("logged out");
 });
 
+app.use("/register", registerRouter);
+app.use("/login", loginRouter);
 app.use("/", indexRouter);
 
 app.listen(PORT, () => {

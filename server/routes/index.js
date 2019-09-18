@@ -5,7 +5,10 @@ const Gallery = require("../database/models/Gallery");
 const knex = require("../database/knex");
 
 router.get("/", (req, res) => {
-  res.status(200).render("index");
+  return req.db.Gallery.fetchAll().then(results => {
+    let pics = results.models.map(e => e.attributes);
+    res.status(200).render("index", { picture: pics });
+  });
 });
 
 module.exports = router;
