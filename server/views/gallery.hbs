@@ -1,0 +1,24 @@
+<div class="content__container">
+  <div class="content">
+
+    <div class="logout">
+      <form action="/logout" method="GET">
+        <button>LOGOUT</button>
+      </form>
+    </div>
+
+
+    <h1>_Leopold</h1>
+    <div class="pictures">
+      {{#each picture}}
+      <div>
+        <a href="/login">
+          <img src={{url}} alt="#">
+        </a>
+      </div>
+      {{/each}}
+    </div>
+
+
+  </div>
+</div>

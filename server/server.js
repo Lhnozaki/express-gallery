@@ -15,6 +15,8 @@ const saltRounds = 12;
 const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login");
 const registerRouter = require("./routes/register");
+const galleryRouter = require("./routes/gallery");
+const logoutRouter = require("./routes/logout");
 
 // REDIS
 const RedisStore = require("connect-redis")(session);
@@ -66,15 +68,8 @@ function isAuthenticated(req, res, next) {
   }
 }
 
-app.get("/secret", isAuthenticated, (req, res) => {
-  return res.send("You found the secret!");
-});
-
-app.get("/logout", (req, res) => {
-  req.logout();
-  res.send("logged out");
-});
-
+app.use("/logout", logoutRouter);
+app.use("/gallery", galleryRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/", indexRouter);

@@ -9,9 +9,9 @@ router.get("/", (req, res) => {
 router.post(
   "/",
   passport.authenticate("local", {
-    successRedirect: "/secret",
+    successRedirect: "/gallery",
     failureFlash: "Invalid Username or Password combination",
-    failureRedirect: "login"
+    failureRedirect: "/login"
   })
 );
 
