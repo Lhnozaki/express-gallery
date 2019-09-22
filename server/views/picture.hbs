@@ -1,0 +1,33 @@
+<div class="picture_container">
+
+  <div class="return">
+    <form action="/gallery" method="GET">
+      <button> &lt&lt </button>
+    </form>
+  </div>
+
+  <div class="edit">
+    <form action="/gallery" method="GET">
+      <button> EDIT </button>
+    </form>
+  </div>
+
+  <div class="delete">
+    <form action="/gallery" method="GET">
+      <button> DELETE </button>
+    </form>
+  </div>
+
+
+  <div class="pic">
+
+    {{#each picture}}
+    <div>
+      <img src={{url}} alt="#">
+      <h5>{{description}}</h5>
+      {{/each}}
+      <h6>{{username}}</h6>
+    </div>
+
+
+  </div>

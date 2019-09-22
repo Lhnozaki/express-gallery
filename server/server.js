@@ -60,14 +60,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-function isAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    return res.redirect("login");
-  }
-}
-
+// Routes
 app.use("/logout", logoutRouter);
 app.use("/gallery", galleryRouter);
 app.use("/register", registerRouter);

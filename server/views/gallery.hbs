@@ -7,12 +7,17 @@
       </form>
     </div>
 
+    <div class="new">
+      <form action="/gallery/new" method="GET">
+        <button>Add</button>
+      </form>
+    </div>
 
-    <h1>_Leopold</h1>
+    <h1>A Good Boy</h1>
     <div class="pictures">
       {{#each picture}}
       <div>
-        <a href="/login">
+        <a href="/gallery/{{id}}">
           <img src={{url}} alt="#">
         </a>
       </div>
