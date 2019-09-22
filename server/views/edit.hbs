@@ -1,0 +1,24 @@
+<div class="content__container2">
+  <div class="content">
+
+    <h1>EDIT</h1>
+    <form action="/gallery/{{id}}/?_method=PUT" method="POST">
+      <label for="description">_description:</label><br />
+      <input type="text" name="description" />
+      <br /><br />
+      <label for="url">_url:</label><br />
+      <input type="text" name="url" />
+
+      <br /><br />
+
+      <button>UPDATE</button>
+    </form>
+
+
+    <form action="/gallery" method="GET">
+      <button id="back__button"> &lt&lt </button>
+    </form>
+
+
+  </div>
+</div>
