@@ -17,12 +17,12 @@ body {
   margin: 10px auto;
   max-width: 1250px;
   box-shadow: 22px 22px; }
-  .content__container .new {
-    position: absolute;
-    right: 450px; }
-    .content__container .new button {
-      margin: 30px;
-      border: 1.9px solid black;
+  .content__container .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .content__container .heading button {
+      border: 2px solid black;
       background: white;
       height: 40px;
       width: 200px;
@@ -30,7 +30,7 @@ body {
       font-weight: 500;
       color: black;
       transition: 0.3s; }
-      .content__container .new button:hover {
+      .content__container .heading button:hover {
         box-shadow: 5px 5px; }
 
 .content__container2 {
@@ -194,10 +194,8 @@ body {
   .pictures a {
     color: black; }
 
-.logout,
 .return {
   position: absolute; }
-  .logout button,
   .return button {
     margin: 30px;
     border: 1.9px solid black;
@@ -208,6 +206,5 @@ body {
     font-weight: 500;
     color: black;
     transition: 0.3s; }
-    .logout button:hover,
     .return button:hover {
       box-shadow: 5px 5px; }

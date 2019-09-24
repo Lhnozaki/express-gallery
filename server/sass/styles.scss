@@ -22,12 +22,13 @@ body {
   margin: 10px auto;
   max-width: 1250px;
   box-shadow: 22px 22px;
-  .new {
-    position: absolute;
-    right: 450px;
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     button {
-      margin: 30px;
-      border: 1.9px solid black;
+      border: 2px solid black;
       background: white;
       height: 40px;
       width: 200px;
@@ -236,7 +237,7 @@ body {
   }
 }
 
-.logout,
+// .logout,
 .return {
   position: absolute;
   button {

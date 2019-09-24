@@ -5,7 +5,20 @@ const Gallery = require("../database/models/Gallery");
 const knex = require("../database/knex");
 const isAuthenticated = require("../database/isAuthenticated");
 
+router.delete("/:id", isAuthenticated, (req, res, next) => {
+  return req.db.Gallery.where({ id: req.params.id })
+    .destroy()
+    .then(results => {
+      res.status(200).redirect("/gallery");
+    });
+});
+
 router.put("/:id", isAuthenticated, (req, res, next) => {
+  if (req.body.description === "" || req.body.url === "") {
+    res.redirect(`/gallery/${req.params.id}/edit`);
+    return;
+  }
+
   return req.db.Gallery.where({ id: req.params.id })
     .fetchAll()
     .then(results => {
@@ -25,6 +38,11 @@ router.put("/:id", isAuthenticated, (req, res, next) => {
 });
 
 router.post("/", isAuthenticated, (req, res, next) => {
+  if (req.body.description === "" || req.body.url === "") {
+    res.redirect("gallery/new");
+    return;
+  }
+
   return new Gallery({
     description: req.body.description,
     url: req.body.url,
@@ -33,10 +51,6 @@ router.post("/", isAuthenticated, (req, res, next) => {
     .save()
     .then(results => {
       res.status(200).redirect("gallery");
-    })
-    .catch(err => {
-      console.log(err);
-      res.send("Error");
     });
 });
 
@@ -48,6 +62,12 @@ router.get("/:id/edit", isAuthenticated, (req, res, next) => {
   return req.db.Gallery.where({ id: req.params.id })
     .fetchAll()
     .then(results => {
+      let userID = parseInt(results.models.map(e => e.attributes.user_id));
+      if (req.user.id !== userID) {
+        res.redirect("/gallery");
+        return;
+      }
+
       let picId = results.models.map(e => e.attributes.id);
       res.status(200).render("edit", { id: [...picId] });
     });
