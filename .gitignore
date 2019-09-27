@@ -31,5 +31,4 @@ node_modules
 *.DS_Store
 
 # env
-server/.env
-.env
+*.env
