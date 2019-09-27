@@ -20,7 +20,7 @@ router.put("/:id", isAuthenticated, (req, res, next) => {
   }
 
   return req.db.Gallery.where({ id: req.params.id })
-    .fetchAll()
+    .fetch()
     .then(results => {
       return new Gallery({ id: req.params.id })
         .save(

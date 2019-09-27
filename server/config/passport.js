@@ -10,8 +10,6 @@ module.exports = function(passport) {
       return new User({ username: username })
         .fetch()
         .then(user => {
-          console.log(user);
-
           if (user === null) {
             return done(null, false, { message: "bad username or password" });
           } else {
@@ -32,21 +30,16 @@ module.exports = function(passport) {
           }
         })
         .catch(err => {
-          console.log("error: ", err);
           return done(err);
         });
     })
   );
 
   passport.serializeUser(function(user, done) {
-    console.log("serializing");
-
     return done(null, { id: user.id, username: user.username });
   });
 
   passport.deserializeUser(function(user, done) {
-    console.log("deserializing");
-    console.log(user);
     return done(null, user);
   });
 };
