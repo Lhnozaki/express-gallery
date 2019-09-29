@@ -60,47 +60,40 @@ router.get("/new", isAuthenticated, (re, res, next) => {
 
 router.get("/:id/edit", isAuthenticated, (req, res, next) => {
   return req.db.Gallery.where({ id: req.params.id })
-    .fetchAll()
+    .fetch()
     .then(results => {
-      let userID = parseInt(results.models.map(e => e.attributes.user_id));
+      let userID = results.toJSON().user_id;
       if (req.user.id !== userID) {
         res.redirect("/gallery");
         return;
       }
-
-      let picId = results.models.map(e => e.attributes.id);
-      res.status(200).render("edit", { id: [...picId] });
+      let picId = results.toJSON().id;
+      res.status(200).render("edit", { id: picId });
     });
 });
 
 router.get("/:id", isAuthenticated, (req, res, next) => {
   return req.db.Gallery.where({ id: req.params.id })
-    .fetchAll({ withrelated: ["user_id"] })
+    .fetchAll({ withRelated: ["users"] })
     .then(results => {
-      let pics = results.models.map(e => e.attributes);
+      let picture = results.toJSON()[0];
+      let user = picture.users;
+      let url = picture.url;
+      let description = picture.description;
 
-      if (req.user.id !== pics[0].user_id) {
-        req.db.User.where({ id: pics[0].user_id })
-          .fetchAll()
-          .then(user => {
-            let username = user.models.map(e => e.attributes.username);
-
-            res
-              .status(200)
-              .render("pic_no_btn", { picture: pics, username: [...username] });
-          });
+      if (req.user.id !== user.id) {
+        res.status(200).render("pic_no_btn", {
+          url: url,
+          description: description,
+          username: user.username
+        });
       } else {
-        req.db.User.where({ id: pics[0].user_id })
-          .fetchAll()
-          .then(user => {
-            let username = user.models.map(e => e.attributes.username);
-            let picId = results.models.map(e => e.attributes.id);
-            res.status(200).render("picture", {
-              picture: pics,
-              username: [...username],
-              id: [...picId]
-            });
-          });
+        res.status(200).render("picture", {
+          url: url,
+          description: description,
+          username: user.username,
+          id: picture.id
+        });
       }
     });
 });

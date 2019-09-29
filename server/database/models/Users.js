@@ -11,7 +11,7 @@ class User extends bookshelf.Model {
   }
 
   galleries() {
-    return this.hasMany("Gallery", "user_id");
+    return this.hasMany("gallery", "user_id");
   }
 }
 
