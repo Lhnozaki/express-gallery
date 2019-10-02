@@ -1,0 +1,31 @@
+<div class="picture_container">
+
+  <div class="return">
+    <form action="/gallery" method="GET">
+      <button> &lt&lt </button>
+    </form>
+  </div>
+
+  <div class="edit">
+    <form action="/gallery/{{id}}/edit" method="GET">
+      <button> EDIT </button>
+    </form>
+  </div>
+
+  <div class="delete">
+    <form action="/gallery/{{id}}/?_method=DELETE" method="POST">
+      <button> DELETE </button>
+    </form>
+  </div>
+
+  <div class="pic">
+
+
+    <div>
+      <img src={{url}} alt="#">
+      <h5>{{description}}</h5>
+      <h6>{{username}}</h6>
+    </div>
+
+
+  </div>
